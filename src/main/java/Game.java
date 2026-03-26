@@ -3,6 +3,7 @@ public class Game
     private Parser parser;
     private Room currentRoom;
     private Player player;
+    private Player ghost;
     Room outside, livingRoom, kitchen, hallwayStairs, bedroom, bathroom, study, secretPassage, attic;
     Item exampleItem, exampleItem2, hpBottle;
 
@@ -13,7 +14,9 @@ public class Game
     {
         createRooms();
         parser = new Parser();
-        player = new Player();
+        player = new Player(100,2);
+        ghost = new Player(10, 2);
+
     }
 
     public static void main(String[] args) {
@@ -384,6 +387,35 @@ public class Game
             currentRoom = nextRoom;
             System.out.println(currentRoom.getShortDescription());
         }
+    }
+
+    private void pressButton(Command command) {
+        if(!currentRoom.equals(study)) {
+            System.out.println("There's nothing to press here");
+        }
+
+        if(!command.hasSecondWord()) {
+            System.out.println("Press what?");
+        }
+
+        String buttonName = command.getSecondWord();
+
+        if(command.hasThirdWord()) {
+            buttonName += " " + command.getThirdWord();
+        }
+
+        if(!buttonName.equals("desk button")) {
+            System.out.println("That's not a button!?");
+        }
+
+        if(buttonName.equals("desk button")) {
+            System.out.println("The panel the button is on opens into a drawer that contains a single silver key" );
+            grabItem(
+        }
+
+
+
+
     }
 
     /**

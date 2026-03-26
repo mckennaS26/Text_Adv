@@ -4,12 +4,15 @@ import java.util.Iterator;
 
 public class Player {
     private HashMap<String, Item> inventory;
+    private boolean active;
 
-    private int hp;
+    private int hp, dmg;
 
-    public Player() {
+    public Player(int hp, int dmg) {
         inventory = new HashMap<>();
-        hp = 100;
+        this.hp = hp;
+        this.dmg = dmg;
+        active = false;
     }
 
     public int getHP() {
@@ -18,6 +21,14 @@ public class Player {
 
     public void adjustHP(int value) {
         hp += value;
+    }
+
+    public int getDmg() {
+        return dmg;
+    }
+
+    public void adjustDmg(int value) {
+        dmg += value;
     }
 
     public void setItem(String name, Item item) {
