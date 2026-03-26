@@ -410,7 +410,7 @@ public class Game
 
         if(buttonName.equals("desk button")) {
             System.out.println("The panel the button is on opens into a drawer that contains a single silver key" );
-            grabItem(
+            player.setItem();
         }
 
 
