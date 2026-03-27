@@ -5,7 +5,7 @@ public class Game
     private Player player;
     private Player ghost;
     Room outside, livingRoom, kitchen, hallwayStairs, bedroom, bathroom, study, secretPassage, attic;
-    Item rapier, wornFile, ornateKey, goldKey, driedHerbs, salt, ;
+    Item rapier, wornFile, ornateKey, goldKey, driedHerbs, salt, trunk, armoire, dustyNotes, fullMirror, brassKey ;
 
     /**
      * Create the game and initialise its internal map.
@@ -111,8 +111,8 @@ public class Game
 
         study = new Room(
                 "You are in an old, ornate study.",
-                "The study is straght out of an old academic's dream. The outer-facing walls have floor to ceiling,\n"+
-                        "mutli-paned windows with large burgundy curtains tied to the sides. The rest of the walls are\n"+
+                "The study is straight out of an old academic's dream. The outer-facing walls have floor to ceiling,\n"+
+                        "multi-paned windows with large burgundy curtains tied to the sides. The rest of the walls are\n"+
                         "completely covered in floor to ceiling bookcases with a rolling ladder to traverse them. There isn't\n"+
                         "a single empty slot in the bookcase except for one on the a bookcase on the north wall. In the\n"+
                         "center of the room is a large, ornate desk covered in embellishments and drawers. Atop the desk is\n"+
@@ -130,10 +130,10 @@ public class Game
 
         attic = new Room(
                 "You are in a dark, dank, musty attic.",
-                "The attic is large, it almost seems larger thant the house's footprint. It's dank and all light is\n" +
+                "The attic is large, it almost seems larger that the house's footprint. It's dank and all light is\n" +
                         "coming through a small window to your left that is mostly boarded up. there are cobwebs in every corner\n" +
-                        "and a large metal table in the center of ther room. The table is plain and yet seems somehow different\n" +
-                        "from the average table. There is a dark shadow in the west corner of the reoom and a wall of tools to\n" +
+                        "and a large metal table in the center of the room. The table is plain and yet seems somehow different\n" +
+                        "from the average table. There is a dark shadow in the west corner of the room and a wall of tools to\n" +
                         "your right. None seem to be electrically powered and honestly look over the top and downright scary.\n" +
                         "Below the opposite wall is a large, locked file cabinet. Nestled between the file cabinet and the adjacent\n" +
                         "wall is another desk, much smaller and simpler than the one in the study, but also much more covered in an\n" +
