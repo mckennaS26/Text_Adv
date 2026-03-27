@@ -5,7 +5,7 @@ public class Game
     private Player player;
     private Player ghost;
     Room outside, livingRoom, kitchen, hallwayStairs, bedroom, bathroom, study, secretPassage, attic;
-    Item exampleItem, exampleItem2, hpBottle;
+    Item rapier, wornFile, ornateKey, goldKey, driedHerbs, salt, ;
 
     /**
      * Create the game and initialise its internal map.
@@ -34,7 +34,7 @@ public class Game
                 "You stand just outside the door of a house.",
                 "The facade of a quaint Victorian house stands before you. It has a turret that extends off \n" +
                         "the front corner of the house. It seems rather well kept, but there are weeds starting to peek\n" +
-                        "out of the sidewalk cracks. The navy paint has seen better days and the front door in fron of\n" +
+                        "out of the sidewalk cracks. The navy paint has seen better days and the front door in front of\n" +
                         "you is warped and the stain is gone in patches. You stand on the rickety porch that groans when\n" +
                         "you move."
         );
@@ -44,34 +44,35 @@ public class Game
                 "It is not very messy except for the eclectic and eerie decorating style and a few objects\n" +
                         "that seem missing or misplaced.\n\n" +
                         "This downstairs level is open concept and the front door enters directly into the living room.\n" +
-                        "There is a staircase next to the door and beyond the livng room, you can see a small kitchen.\n\n" +
-                        "The living room is full of bookcases and directly to your left is a coatrack with a single coat\n" +
-                        "on it. Next to the coatrack is an overflowing umbrella holder that another coat is draped over.\n"+
+                        "There is a staircase next to the door and beyond the living room, you can see a small kitchen.\n\n" +
+                        "The living room is full of bookcases and directly to your left is a coat rack with a single coat\n" +
+                        "on it. Next to the coat rack is an overflowing umbrella holder that strangely has a rapier.\n"+
                         "There is a couch and a few chairs on the right, facing the right wall that has a single tv on\n" +
                         "top of a short bookcase. There are a large number of framed pictures of many people covering the\n" +
                         "but no one person appears more than twice. There is a large rug in the middle of the room and\n" +
                         "a low coffee table on top of it. There is an old mug sitting atop the table and next to it, a\n" +
                         "worn file. The walls are all decorated with different trinkets, none cohesive, except for the\n" +
-                        "the fact that most are made of silver."
+                        "the fact that most are made of silver. One of these silver trinkets is an ornate key in\n" +
+                        "an empty picture frame."
         );
 
         kitchen = new Room(
                 "You are inside the small kitchen attached to the living room.",
-                "There is a large old mahagony table in the middle of the kitchen, taking up most\n" +
+                "There is a large old mahogany table in the middle of the kitchen, taking up most\n" +
                         "of the space. The kitchen is open directly into the living room so there is no real\n" +
                         "barrier between.\n\n"+
                         "   It contains all the basic amenities, a stove, fridge,\n" +
                         "sink,...etc. that are all spaced out by a multitude of dark oak cabinets. There is\n"+
-                        "a strange contaption on top of the stone counter. The counter wraps fully around\n" +
+                        "a strange contraption on top of the stone counter. The counter wraps fully around\n" +
                         "atop the bottom cabinets. There is a small vase full of spoons, ladles, tongs,\n" +
-                        "and other cooking tools. Most noticeably there is a long string that wraps along\n" +
-                        "the wall and has multiple dried plants clipped to it. The counter is covered in \n "+
-                        "multiple larege jars with names for different spices and ingredients. There are a \n" +
-                        "few you don't recongize, but the largest jar, normally reserved for flour, has the \n"+
-                        "printed 'flour' label taped over. Written in sharpie on the tape is 'Salt'. Like \n"+
-                        "the coffee table, the large table seems to have been left in a hurry, with breakfast\n"+
-                        "leftovers still lying about. On the left wall there is a pantry with two doors that\n" +
-                        "you can't seem to open, they have no handles on them."
+                        "and other cooking tools with a cord on which a gold key hangs. Most noticeably there\n" +
+                        "is a long string that wraps along the wall and has multiple dried plants clipped to it.\n "+
+                        "The counter is covered in multiple large jars with names for different spices and \n" +
+                        "ingredients. There are a few you don't recognize, but the largest jar, normally \n"+
+                        "reserved for flour, has the printed 'flour' label taped over. Written in sharpie on the \n"+
+                        "tape is 'Salt'. Like the coffee table, the large table seems to have been left in a hurry,\n"+
+                        " with breakfast leftovers still lying about. On the left wall there is a pantry with two\n" +
+                        " doors that you can't seem to open, they have no handles on them."
         );
 
         hallwayStairs = new Room(
@@ -81,7 +82,7 @@ public class Game
                         "the stairs and on every wall of the hallway, continues the many framed pictures of\n" +
                         "different people and the strange collection of objects that started in the living room.\n"+
                         "The shelves are yet again filled with a multitude of books. Next to one of the bookshelves\n"+
-                        "is a large, musty, glass case that seems to be filled with memorabilia  for a fencing prodigy."
+                        "is a large, musty, glass case that seems to be filled with memorabilia for a fencing prodigy."
         );
 
         bedroom = new Room(
@@ -197,7 +198,7 @@ public class Game
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        System.out.println("Thank you for playing.  Good bye.");
+        System.out.println("Thank you for playing. Good bye.");
     }
 
     /**
@@ -265,8 +266,8 @@ public class Game
                 pressButton(command);
                 break;
 
-            case DISPELL:
-                dispellGhost(command);
+            case DISPEL:
+                dispelGhost(command);
                 break;
         }
         return wantToQuit;
@@ -310,8 +311,8 @@ public class Game
      */
     private void printHelp()
     {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
+        System.out.println("You are stuck in a dark dingy house. You are");
+        System.out.println("trying to escape.");
         System.out.println();
         System.out.println("Your command words are:");
         parser.showCommands();
