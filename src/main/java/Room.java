@@ -10,11 +10,12 @@ public class Room
     private HashMap<String, Item> inventory;
 
 
+
     /**
      * Create a room described "description". Initially, it has
      * no exits. "description" is something like "a kitchen" or
      * "an open court yard".
-     * @param description The room's description.
+     * @paramdescription The room's description.
      */
     public Room(String shortDescription, String longDescription)
     {
@@ -72,7 +73,7 @@ public class Room
      * "Exits: north west".
      * @return Details of the room's exits.
      */
-    private String getExitString()
+    public String getExitString()
     {
         String returnString = "Exits:\n";
         Set<String> keys = exits.keySet();

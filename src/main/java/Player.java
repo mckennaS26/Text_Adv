@@ -15,6 +15,9 @@ public class Player {
         active = false;
     }
 
+    public HashMap getInventory() {
+        return inventory;
+    }
     public int getHP() {
         return hp;
     }

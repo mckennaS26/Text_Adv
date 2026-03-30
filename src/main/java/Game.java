@@ -2,10 +2,11 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
+    private Item requiredItem;
     private Player player;
     private Player ghost;
-    Room outside, livingRoom, kitchen, hallwayStairs, bedroom, bathroom, study, secretPassage, attic;
-    Item rapier, wornFile, ornateKey, goldKey, driedHerbs, salt, trunk, armoire, dustyNotes, fullMirror, brassKey ;
+    Room outside, livingRoom, kitchen, hallwayStairs, bedroom, bathroom, study, secretPassage, attic, escape;
+    Item rapier, wornFile, ornateKey, driedHerbs, salt, dustyNotes, brassKey, boneKey, stainedPapers, ghostKey;
 
     /**
      * Create the game and initialise its internal map.
@@ -65,12 +66,12 @@ public class Game
                         "sink,...etc. that are all spaced out by a multitude of dark oak cabinets. There is\n"+
                         "a strange contraption on top of the stone counter. The counter wraps fully around\n" +
                         "atop the bottom cabinets. There is a small vase full of spoons, ladles, tongs,\n" +
-                        "and other cooking tools with a cord on which a gold key hangs. Most noticeably there\n" +
-                        "is a long string that wraps along the wall and has multiple dried plants clipped to it.\n "+
-                        "The counter is covered in multiple large jars with names for different spices and \n" +
-                        "ingredients. There are a few you don't recognize, but the largest jar, normally \n"+
-                        "reserved for flour, has the printed 'flour' label taped over. Written in sharpie on the \n"+
-                        "tape is 'Salt'. Like the coffee table, the large table seems to have been left in a hurry,\n"+
+                        "and other cooking tools. Most noticeably there is a long string that wraps along the wall\n" +
+                        " and has multiple dried plants clipped to it. The counter is covered in multiple large\n "+
+                        "jars with names for different spices and ingredients. There are a few you don't recognize,\n" +
+                        " but the largest jar, normally reserved for flour, has the printed 'flour' label taped over.\n"+
+                        " Written in sharpie on the tape is 'Salt'.\n"+
+                        "Like the coffee table, the large table seems to have been left in a hurry,\n"+
                         " with breakfast leftovers still lying about. On the left wall there is a pantry with two\n" +
                         " doors that you can't seem to open, they have no handles on them."
         );
@@ -100,7 +101,7 @@ public class Game
 
         bathroom = new Room(
                 "You are inside a bathroom.",
-                "The bathroom is the same length as the bedroom. It has an new full length mirror,\n"+
+                "The bathroom is the same length as the bedroom. It has an new full-length mirror,\n"+
                         "a large modern tub with a standing shower next to it. There is a toilet opposite the\n"+
                         "tub. Next to the mirror is a line of old oak cabinets with a sink in the middle of them.\n"+
                         "Surrounding the sink is a couple of candles that and a singular soap bar.\n"+
@@ -116,7 +117,7 @@ public class Game
                         "completely covered in floor to ceiling bookcases with a rolling ladder to traverse them. There isn't\n"+
                         "a single empty slot in the bookcase except for one on the a bookcase on the north wall. In the\n"+
                         "center of the room is a large, ornate desk covered in embellishments and drawers. Atop the desk is\n"+
-                        "an open journal, an array of papers strewn about, and a single pen, laid across the journal."
+                        "an open journal and a single pen, laid across it."
         );
 
         secretPassage = new Room(
@@ -134,10 +135,15 @@ public class Game
                         "coming through a small window to your left that is mostly boarded up. there are cobwebs in every corner\n" +
                         "and a large metal table in the center of the room. The table is plain and yet seems somehow different\n" +
                         "from the average table. There is a dark shadow in the west corner of the room and a wall of tools to\n" +
-                        "your right. None seem to be electrically powered and honestly look over the top and downright scary.\n" +
+                        "your right. None seem to be electrically powered and honestly, look over the top and downright scary.\n" +
                         "Below the opposite wall is a large, locked file cabinet. Nestled between the file cabinet and the adjacent\n" +
                         "wall is another desk, much smaller and simpler than the one in the study, but also much more covered in an\n" +
-                        "array of papers."
+                        "array of stained papers."
+        );
+
+        escape = new Room(
+                "",
+                ""
         );
 
         // initialise room exits
@@ -161,23 +167,49 @@ public class Game
         bathroom.setExit("west", bedroom);
         bathroom.setExit("hallway", hallwayStairs);
 
-        study.setExit("bookcase",secretPassage);
+
         study.setExit("hallway", hallwayStairs);
         study.setExit("west", bathroom);
 
-        secretPassage.setExit("escape", outside);
+
         secretPassage.setExit("upstairs trapdoor", attic);
         secretPassage.setExit("downstairs pantry", kitchen);
 
         attic.setExit("trapdoor", secretPassage);
 
 
-        exampleItem = new Item(0);
-        exampleItem2 = new Item(0);
-        hpBottle = new Item(10);
-        outside.setItem("health potion", hpBottle);
-        outside.setItem("ice sword", exampleItem);
-        outside.setItem("flame bottle", exampleItem2);
+
+
+        rapier = new Item(0, 20);
+        wornFile = new Item(0,0);
+        ornateKey = new Item(0,0);
+
+        driedHerbs = new Item(0,10);
+        salt = new Item(0,15);
+        dustyNotes = new Item(0,0);
+        brassKey = new Item(0,0);
+        boneKey = new Item(0,0);
+        stainedPapers  = new Item(0,0);
+        ghostKey = new Item(0,0);
+
+        livingRoom.setItem("rapier", rapier);
+        livingRoom.setItem("worn file", wornFile);
+        livingRoom.setItem("ornate key", ornateKey);
+
+        kitchen.setItem("dried herbs", driedHerbs);
+        kitchen.setItem("salt", salt);
+
+
+        bedroom.setItem("dusty notes", dustyNotes);
+
+
+        bathroom.setItem("brass key", brassKey);
+
+        study.setItem("bone key", boneKey);
+
+        attic.setItem("stained papers", stainedPapers);
+        attic.setItem("ghost key", ghostKey);
+
 
 
         currentRoom = outside;  // start game outside
@@ -194,11 +226,12 @@ public class Game
         // execute them until the game is over.
 
         boolean finished = false;
-        while (! finished) {
+        while (!finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
+
         }
-        System.out.println("Thank you for playing. Good bye.");
+        System.out.println("You escaped from the house! No longer fearing for your life! You can leave now......Go on.....Go.");
     }
 
     /**
@@ -207,8 +240,9 @@ public class Game
     private void printWelcome()
     {
         System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a text based adventure game.");
+        System.out.println("Welcome to Escape!");
+        System.out.println("This is a text based adventure game. That includes you having to survive a supernatural experience!");
+        System.out.println("Do you think you're up to it?");
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
         System.out.println();
         System.out.println(currentRoom.getShortDescription());
@@ -274,6 +308,43 @@ public class Game
     }
 
     // implementations of user commands:
+
+    private void dispelGhost(Command command) {
+        if (currentRoom != attic) {
+            System.out.println("I think you're hallucinating, there's no ghost here.");
+        }
+        if(!(player.getInventory().containsValue(rapier) || player.getInventory().containsValue(salt) || player.getInventory().containsValue(driedHerbs))) {
+        System.out.println("You don't have anything to fight a ghost!");
+        }
+        else{
+            ghost.adjustHP(0);
+            System.out.println("The ghost dissipates and drops an ethereal looking key.");
+            player.setItem("ghost key", ghostKey);
+            secretPassage.setExit("escape", escape);
+        }
+
+    }
+    private void open(Command command) {
+        if(!command.hasSecondWord()) {
+            System.out.println("What are you trying to open?");
+            return;
+        }
+
+        String objectName = command.getSecondWord();
+        if (command.hasThirdWord()) {
+            objectName += " " + command.getThirdWord();
+        }
+
+        if(objectName.equals("full-length mirror")) {
+            System.out.println("You open the mirror an inside is a singular brass key hanging on a hook.");
+        } else if (objectName.equals("trunk")) {
+            System.out.println("You open the trunk, the only thing inside is a messy pile of dusty notes.");
+        }else {
+            System.out.println("I don't know what you're on, but that does NOT have a hinge.");
+        }
+
+    }
+
     private void drinkItem(Command command) {
         if(!command.hasSecondWord()) {
             System.out. println("Drink what?");
@@ -298,7 +369,7 @@ public class Game
     }
     private void look(Command command) {
         if(command.hasSecondWord()) {
-            System.out.println("Thats for my eyes only, not yours!");
+            System.out.println("That's for my eyes only, not yours!");
             return;
         }
         System.out.println(currentRoom.getRoomDescription());
@@ -338,6 +409,17 @@ public class Game
         }else {
             player.setItem(itemName, itemToGrab);
             System.out.println(player.getInventoryString());
+            if (player.getInventory().containsValue(wornFile) && player.getInventory().containsValue(dustyNotes) && player.getInventory().containsValue(stainedPapers)) {
+                System.out.println("The papers you have collected tell you that at one point this house belonged to\n" +
+                        "a mad scientist who lured people into his house to experiment on. The pictures everywhere\n" +
+                        "are of those lost souls. The strange collection of objects were collected by him later to\n" +
+                        "attempt to protect himself from the ghosts that started inhabiting his house.\n\n" +
+                        "As you finally tie it all together, a ghost appears in front of you coming at you wailing.");
+            } else {
+                return;
+            }
+
+
         }
     }
 
@@ -382,7 +464,7 @@ public class Game
         Room nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null) {
-            System.out.println("That's not a door, thats a wall");
+            System.out.println("That's not a door, that's a wall.");
         }
         else {
             currentRoom = nextRoom;
@@ -410,8 +492,11 @@ public class Game
         }
 
         if(buttonName.equals("desk button")) {
-            System.out.println("The panel the button is on opens into a drawer that contains a single silver key" );
-            player.setItem();
+            System.out.println("The panel the button is on opens into a drawer that contains a single bone key" );
+            player.setItem("bone key", boneKey);
+            study.setExit("bookcase",secretPassage);
+            System.out.println(study.getExitString());
+
         }
 
 
@@ -429,6 +514,9 @@ public class Game
         if(command.hasSecondWord()) {
             System.out.println("Quit what?");
             return false;
+        }
+        else if (currentRoom.equals(escape)) {
+            return true;
         }
         else {
             return true;  // signal that we want to quit
